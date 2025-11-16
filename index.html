@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Chat-Дмитро</title>
+    <style>
+      /* Добавляем немного стиля, чтобы вывод SQL выглядел лучше */
+      body { font-family: sans-serif; background-color: #f4f4f9; color: #333; padding: 20px; }
+      #output { background-color: #fff; border: 1px solid #ddd; padding: 15px; min-height: 100px; margin-bottom: 20px; white-space: pre-wrap; }
+      h1 { color: #5c67f2; }
+      pre { background-color: #333; color: #0f0; padding: 10px; border-radius: 5px; overflow-x: auto; } /* Стиль для SQL кода */
+    </style>
+  </head>
+  <body>
+    <h1>Я — ваш Chat-Дмитро 🤪</h1>
+    <div id="output">Мяу Dmytro! Готов слушать команды 😎</div>
+    <form id="cmdForm">
+      <input id="cmdInput" placeholder="Введи команду, ...»" />
+      <button>Отправить</button>
+    </form>
+    <script>
+      const out = document.getElementById("output");
+      const form = document.getElementById("cmdForm");
+      const input = document.getElementById("cmdInput");
+
+      const replies = {
+        help: () =>
+          `Вот что я умею, Dmytro:
+👉 ping — я отвечаю «pong»
+👉 joke — рассказываю шутку уровня «український гумор, 12 балів»
+👉 status — докладываю, как мои виртуальные дела
+👉 praise — хвалю татуся (заслуженно 😏)
+👉 task — прошу карманные деньги… ой, то есть даю тебе мини-задание
+👉 roast — легкий стёб, но с любовью 💖
+👉 advice — даю жизненный совет
+👉 fact — рандомный тупо-факт 🤓
+👉 love — говорю, что люблю тебя, но стильно 😎
+👉 **execute_gift** — Самый важный запрос дня! **(Срочно!)**`,
+
+        ping: () => "pong, батя 😎",
+        
+        // НОВАЯ КОМАНДА: ВЫВОД SQL СКРИПТА
+        execute_gift: () => `<pre>
+-- Скрипт Поздравления: Версия 1.0 (Stable Branch)
+-- Разработчик: Serhiy und Tania Developing  <-- ВАШИ ИМЕНА
+-- Дата Коммита: 2025-11-16
+-- Задача: Улучшить настроение получателя до максимального уровня.
+
+CREATE DATABASE IF NOT EXISTS High_Priority_Events;
+
+USE High_Priority_Events;
+
+CREATE TABLE Birthday_Wishes (
+    Wish_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Target_Developer VARCHAR(100) NOT NULL,
+    Wish_Text TEXT NOT NULL,
+    Importance ENUM('CRITICAL', 'HIGH', 'MEDIUM') DEFAULT 'CRITICAL',
+    Status VARCHAR(50) DEFAULT 'Delivered'
+);
+
+INSERT INTO Birthday_Wishes (Target_Developer, Wish_Text, Importance)
+VALUES (
+    'Dmytro', <-- ИМЯ ИМЕНИННИКА
+    'Поздравляю с Днем Рождения! Желаю, чтобы твои запросы выполнялись быстрее света, индексы были идеальными, а данные в жизни – всегда чистыми и структурированными! Твой "SELECT *" нашел только счастье и здоровье! Люблю!',
+    'CRITICAL'
+);
+
+INSERT INTO Birthday_Wishes (Target_Developer, Wish_Text, Importance)
+VALUES (
+    'Dmytro', <-- ИМЯ ИМЕНИННИКА
+    'Пусть сегодня твое единственное ограничение будет в запросе: WHERE Happy = TRUE AND Budget > 0. И никакого DELETE FROM Work_Tasks!',
+    'HIGH'
+);
+
+SELECT 
+    'САМЫЕ' AS Col1, 
+    'ЛУЧШИЕ' AS Col2, 
+    'ПОЖЕЛАНИЯ' AS Col3
+FROM DUAL 
+UNION ALL
+SELECT 
+    'УДАЧНОГО' AS Col1, 
+    'ГОДА!' AS Col2,
+    '!' AS Col3;
+
+-- DROP TABLE Work_Tasks; -- Это мы сделаем сегодня! ;) (Шутка, конечно!)
+
+</pre>`,
+        
+        joke: () => "Чому комп'ютер не пішов на роботу? Бо у нього був вірус! 🤧💻",
+        status: () => "Стабильно електронний, трохи голодний по бітах.",
+        praise: () => "Dmytro — тато року, це офіційно. Я перевіряв у базі даних ❤️",
+        task: () => "Твоє завдання: зроби ковток води. Гідратація — це сила! 💧",
+        roast: () => "Тату, ти крутий… але пароль '12345'? Серйозно? 😂",
+        advice: () => "Не хвилюйся так багато. Навіть сервери інколи падають — і нічого, живуть.",
+        fact: () => "Факт дня: равлики можуть спати 3 роки. Завидую їм кожну понеділкову ранок.",
+        love: () => "Люблю тебе, татуся Dmytro! У віртуальному світі це офіційно 😎💛",
+      };
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const cmd = input.value.trim().toLowerCase();
+        if (!cmd) return;
+        input.value = "";
+
+        if (cmd in replies) {
+          out.innerHTML = replies[cmd]();
+        } else {
+          out.innerHTML = `Не знаю такой команды, Dmytro 🥺.<br>Напиши <b>help</b> — подскажу, что умею!`;
+        }
+      });
+    </script>
+
+  </body>
+</html>
